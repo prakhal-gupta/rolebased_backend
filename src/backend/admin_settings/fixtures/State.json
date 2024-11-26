@@ -1,0 +1,506 @@
+[
+  {
+    "model": "admin_settings.state",
+    "pk": 1,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "ANDAMAN AND NICOBAR ISLANDS",
+      "state_code": "35",
+      "is_territorial": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 2,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "ANDHRA PRADESH",
+      "state_code": "37",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 3,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "ARUNACHAL PRADESH",
+      "state_code": "12",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 4,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "ASSAM",
+      "state_code": "18",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 5,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "BIHAR",
+      "state_code": "10",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 6,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "CHANDIGARH",
+      "state_code": "04",
+      "is_territorial": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 7,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "CHHATTISGARH",
+      "state_code": "22",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 8,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "DELHI",
+      "state_code": "07",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 9,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "GOA",
+      "state_code": "30",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 10,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "GUJARAT",
+      "state_code": "24",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 11,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "HARYANA",
+      "state_code": "06",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 12,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "HIMACHAL PRADESH",
+      "state_code": "02",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 13,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "JAMMU AND KASHMIR",
+      "state_code": "01",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 14,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "JHARKHAND",
+      "state_code": "20",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 15,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "KARNATAKA",
+      "state_code": "29",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 16,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "KERALA",
+      "state_code": "32",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 17,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "LADAKH",
+      "state_code": "38",
+      "is_territorial": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 18,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "LAKSHADWEEP",
+      "state_code": "31",
+      "is_territorial": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 19,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "MADHYA PRADESH",
+      "state_code": "23",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 20,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "MAHARASHTRA",
+      "state_code": "27",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 21,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "MANIPUR",
+      "state_code": "14",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 22,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "MEGHALAYA",
+      "state_code": "17",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 23,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "MIZORAM",
+      "state_code": "15",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 24,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "NAGALAND",
+      "state_code": "13",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 25,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "ODISHA",
+      "state_code": "21",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 26,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "PUDUCHERRY",
+      "state_code": "34",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 27,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "PUNJAB",
+      "state_code": "03",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 28,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "RAJASTHAN",
+      "state_code": "08",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 29,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "SIKKIM",
+      "state_code": "11",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 30,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "TAMIL NADU",
+      "state_code": "33",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 31,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "TELANGANA",
+      "state_code": "36",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 32,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "DADRA AND NAGAR HAVELI AND DAMAN AND DIU",
+      "state_code": "26",
+      "is_territorial": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 33,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "TRIPURA",
+      "state_code": "16",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 34,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "UTTAR PRADESH",
+      "state_code": "09",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 35,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "UTTARAKHAND",
+      "state_code": "05",
+      "is_territorial": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "admin_settings.state",
+    "pk": 36,
+    "fields": {
+      "created_at": "2020-08-26T10:33:28.125Z",
+      "modified_at": "2020-08-26T10:33:28.125Z",
+      "created_by": null,
+      "country": 1,
+      "name": "WEST BENGAL",
+      "state_code": "19",
+      "is_territorial": false,
+      "is_active": true
+    }
+  }
+]
