@@ -1,30 +1,22 @@
 from ..base.api.permissions import (AllowAny, IsAuthenticated, PermissionComponent, ResourcePermission, IsSuperUser,
-                                    AllOnlyGetPerm, AllowAnyGetPerm)
-
-
-class IsTheSameUser(PermissionComponent):
-    def has_permission(self, request, view):
-        return request.user.is_authenticated()
-
-    def has_object_permission(self, request, view, obj=None):
-        return request.user.is_authenticated() and request.user.pk == obj.pk
+                                    AllOnlyGetPerm, AllowAnyGetPerm, HRPerm, EmployeePerm, EmployeePermOnlyGet)
 
 
 class DynamicSettingsPermissions(ResourcePermission):
     metadata_perms = AllowAny()
     enough_perms = None
     global_perms = None
-    retrieve_perms = IsSuperUser() | IsAuthenticated()
-    create_perms = IsSuperUser()
-    update_perms = IsSuperUser()
-    partial_update_perms = IsSuperUser()
-    destroy_perms = IsSuperUser()
-    list_perms = IsSuperUser() | IsAuthenticated() | AllOnlyGetPerm()
-    dropdown_perms = IsSuperUser() | AllOnlyGetPerm()
-    users_perms = IsSuperUser()
+    retrieve_perms = IsSuperUser() | IsAuthenticated() | HRPerm()
+    create_perms = IsSuperUser() | HRPerm()
+    update_perms = IsSuperUser() | HRPerm()
+    partial_update_perms = IsSuperUser() | HRPerm()
+    destroy_perms = IsSuperUser() | HRPerm()
+    list_perms = IsSuperUser() | IsAuthenticated() | AllOnlyGetPerm() | HRPerm()
+    dropdown_perms = IsSuperUser() | AllOnlyGetPerm() | HRPerm()
+    users_perms = IsSuperUser() | HRPerm()
     country_perms = IsSuperUser() | AllOnlyGetPerm() | AllowAnyGetPerm()
     state_perms = IsSuperUser() | AllOnlyGetPerm() | AllowAnyGetPerm()
     city_perms = IsSuperUser() | AllOnlyGetPerm() | AllowAnyGetPerm()
-    all_services_perms = IsSuperUser()
-    employee_perms = IsSuperUser()
-    deleted_employee_perms = IsSuperUser()
+    employee_perms = IsSuperUser() | HRPerm() | EmployeePermOnlyGet()
+    deleted_employee_perms = IsSuperUser() | HRPerm() | EmployeePerm()
+    role_perms = EmployeePerm() | HRPerm()

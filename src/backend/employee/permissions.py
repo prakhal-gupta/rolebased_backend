@@ -1,14 +1,5 @@
-from ..base.api.permissions import (AllowAny, IsAuthenticated, PermissionComponent, ResourcePermission, IsSuperUser,
-                                    AllOnlyGetPerm)
-
-
-class IsTheSameUser(PermissionComponent):
-    def has_permission(self, request, view):
-        return request.user.is_authenticated()
-
-    def has_object_permission(self, request, view, obj=None):
-        return request.user.is_authenticated() and request.user.pk == obj.pk
-
+from ..base.api.permissions import (AllowAny, IsAuthenticated, ResourcePermission, IsSuperUser, AllOnlyGetPerm,
+                                    IsTheSameUser, ApprovalPerm, HRPerm)
 
 class EmployeePermissions(ResourcePermission):
     metadata_perms = AllowAny()
@@ -16,8 +7,9 @@ class EmployeePermissions(ResourcePermission):
     global_perms = None
     retrieve_perms = IsSuperUser() | IsAuthenticated()
     create_perms = IsSuperUser()
-    update_perms = IsSuperUser()
-    partial_update_perms = IsSuperUser()
+    update_perms = IsSuperUser() | IsTheSameUser()
+    partial_update_perms = IsSuperUser() | IsTheSameUser()
     destroy_perms = IsSuperUser()
     list_perms = IsSuperUser() | IsAuthenticated() | AllOnlyGetPerm()
-    employee_perms = IsAuthenticated()
+    hod_approval_perms = ApprovalPerm()
+    hr_approval_perms = HRPerm()

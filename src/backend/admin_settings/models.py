@@ -73,7 +73,6 @@ class Employee(TimeStampedModel):
                                        related_name="employee_permission_set")
     designation = models.ForeignKey(DynamicSettings, blank=True, null=True, on_delete=models.PROTECT, related_name="employee_designation")
     department = models.ForeignKey(DynamicSettings, blank=True, null=True, on_delete=models.PROTECT, related_name="employee_department")
-    photo = models.CharField(max_length=1024, blank=True, null=True)
     emp_code = models.CharField(max_length=124, blank=True, null=True)
     current_address = models.TextField(blank=True, null=True)
     permanent_address = models.TextField(blank=True, null=True)

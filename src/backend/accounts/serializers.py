@@ -1,20 +1,49 @@
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-from .models import User
+from .models import User, Roles
 from ..base.serializers import ModelSerializer
 from ..customer.models import Customer
 
 
 class UserSerializer(ModelSerializer):
+    roles_data = serializers.SerializerMethodField(required=False)
+    roles_code_data = serializers.SerializerMethodField(required=False)
+
     class Meta:
         model = User
         fields = (
             'id', 'email', 'first_name', 'last_name', 'middle_name', 'mobile', 'is_staff',
-            'is_active', 'is_superuser', 'is_separated', 'date_joined', 'dob'
+            'is_active', 'is_superuser', 'is_separated', 'date_joined', 'dob', 'roles_data', 'role', 'roles_code_data'
         )
         extra_kwargs = {'password': {'write_only': True}, 'last_login': {'read_only': True},
                         'is_superuser': {'read_only': True}}
+
+    @staticmethod
+    def get_roles_data(obj):
+        roles_data = []
+        if obj.is_superuser:
+            queryset = Roles.objects.filter(is_active=True)
+            for rec in queryset:
+                roles_data.append(rec.name if rec.name else None)
+        else:
+            queryset = obj.role.all() if obj.role else None
+            for role in queryset:
+                roles_data.append(role.name if role.name else None)
+        return roles_data
+
+    @staticmethod
+    def get_roles_code_data(obj):
+        roles_data = []
+        if obj.is_superuser:
+            queryset = Roles.objects.filter(is_active=True)
+            for rec in queryset:
+                roles_data.append(rec.code_name if rec.code_name else None)
+        else:
+            queryset = obj.role.all() if obj.role else None
+            for role in queryset:
+                roles_data.append(role.code_name if role.code_name else None)
+        return roles_data
 
 
 class UserBasicDataSerializer(ModelSerializer):
@@ -102,3 +131,8 @@ class CustomerRegistrationSerializer(ModelSerializer):
     @staticmethod
     def get_user_data(obj):
         return UserBasicDataSerializer(obj.user).data if obj.user else None
+
+class RoleSerializer(ModelSerializer):
+    class Meta:
+        model = Roles
+        fields = '__all__'

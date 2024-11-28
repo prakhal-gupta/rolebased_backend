@@ -13,6 +13,11 @@ from ..base.utils import short_data
 
 logger = logging.getLogger(__name__)
 
+class Roles(TimeStampedModel):
+    code_name = models.CharField(max_length=1024, blank=True, null=True)
+    name = models.CharField(max_length=1024, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
 
 class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     first_name = models.CharField(max_length=128, blank=True, null=True, default='')
@@ -22,6 +27,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     email = models.EmailField(max_length=255, null=True, blank=True, unique=True)
     pan_no = models.CharField(max_length=255, null=True, blank=True, unique=True)
     username = models.EmailField(max_length=255, null=True, blank=True, unique=True)
+    role = models.ManyToManyField(Roles, blank=True)
     date_joined = models.DateField(blank=True, null=True)
     dob = models.DateField(blank=True, null=True)
     is_staff = models.BooleanField(default=False)

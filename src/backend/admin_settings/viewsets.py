@@ -1,20 +1,19 @@
-import json
-import base64
 from decouple import config
 from django.contrib.auth import get_user_model
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser, JSONParser
-from .constants import SETTINGS_CONSTANT, CORE_SERVICES, NON_CORE_SERVICES
+from .constants import SETTINGS_CONSTANT
 from .filters import DynamicSettingsFilter, CountryFilter, StateFilter, CityFilter,  EmployeeFilter
 from .models import DynamicSettings, Country, State, City, Employee
 from .permissions import DynamicSettingsPermissions
 from .serializers import (DynamicSettingsSerializer, CountrySerializer, StateSerializer, CitySerializer,
                           DeleteEmployeeSerializer, EmployeeSerializer)
 from .services import dropdown_tree, create_new_user
-from ..accounts.filters import UserBasicFilter
-from ..accounts.serializers import UserSerializer
+from ..accounts.filters import UserBasicFilter, RolesFilter
+from ..accounts.models import Roles
+from ..accounts.serializers import UserSerializer, RoleSerializer
 from ..base.utils.email import send_from_template
 from ..base import response
 from ..base.api.pagination import StandardResultsSetPagination
@@ -177,23 +176,6 @@ class DynamicSettingsViewSet(ModelViewSet):
 
 
     @swagger_auto_schema(
-        method="get",
-        operation_summary='List of All Services',
-        operation_description='',
-        response=DynamicSettingsSerializer
-    )
-    @action(methods=['GET'], detail=False, queryset=DynamicSettings, filterset_class=DynamicSettingsFilter)
-    def all_services(self, request):
-        queryset = DynamicSettings.objects.filter(is_active=True)
-        self.filterset_class = DynamicSettingsFilter
-        queryset = self.filter_queryset(queryset)
-        queryset = queryset.filter(name=CORE_SERVICES) | queryset.filter(name=NON_CORE_SERVICES)
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            return self.get_paginated_response(DynamicSettingsSerializer(page, many=True).data)
-        return response.Ok(DynamicSettingsSerializer(queryset, many=True).data)
-
-    @swagger_auto_schema(
         method="post",
         operation_summary='Add Employee.',
         operation_description='Add Employee.',
@@ -240,7 +222,7 @@ class DynamicSettingsViewSet(ModelViewSet):
                 subject = "Your profile is added to Lawsphere"
                 data = {
                     'data': UserSerializer(user).data,
-                    'login_link': config('EMPLOYEE_DOMAIN')
+                    'login_link': config('DOMAIN')
                 }
                 if password:
                     subject = "Your profile has been created on Lawsphere."
@@ -281,3 +263,37 @@ class DynamicSettingsViewSet(ModelViewSet):
             return response.Ok(EmployeeSerializer(queryset, many=True).data)
         else:
             return response.Ok(create_update_record(request, DeleteEmployeeSerializer, Employee))
+
+    @swagger_auto_schema(
+        method="post",
+        operation_summary='Add Roles',
+        operation_description='',
+        request_body=RoleSerializer,
+        response=RoleSerializer
+    )
+    @swagger_auto_schema(
+        method="put",
+        operation_summary='Update Roles',
+        operation_description='.',
+        request_body=RoleSerializer,
+        response=RoleSerializer
+    )
+    @swagger_auto_schema(
+        method="get",
+        operation_summary='List of Roles',
+        operation_description='',
+        response=RoleSerializer
+    )
+    @action(methods=['GET', 'POST', 'PUT'], detail=False, pagination_class=StandardResultsSetPagination, queryset=Roles,
+            filterset_class=RolesFilter)
+    def role(self, request):
+        if request.method == "GET":
+            queryset = Roles.objects.filter(is_active=True)
+            self.filterset_class = RolesFilter
+            queryset = self.filter_queryset(queryset)
+            page = self.paginate_queryset(queryset)
+            if page is not None:
+                return self.get_paginated_response(RoleSerializer(page, many=True).data)
+            return response.Ok(RoleSerializer(queryset, many=True).data)
+        else:
+            return response.Ok(create_update_record(request, RoleSerializer, Roles))

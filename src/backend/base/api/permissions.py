@@ -1,10 +1,7 @@
 import inspect
 from functools import reduce
 from rest_framework.permissions import BasePermission
-from .constants import HR_ROLE_SEED_DATA, NO_DUES_ROLE_SEED_DATA, EMPLOYEE_ROLE_SEED_DATA, APPROVAL_ROLE_SEED_DATA, \
-    IT_ADMINISTRATOR_ROLE_SEED_DATA, TRAVEL_DESK_ROLE_SEED_DATA, MANAGEMENT_ROLE_SEED_DATA, UNIT_HEAD_ROLE_SEED_DATA, \
-    ATTENDANCE_ROLE_SEED_DATA, INVENTORY_HEAD_ROLE_SEED_DATA, ASSET_MANAGER_ROLE_SEED_DATA, ACCOUNTS_ROLE_SEED_DATA, \
-    WEB_ADMIN_ROLE_SEED_DATA, Admin, Viewer
+from .constants import HR_ROLE_SEED_DATA, EMPLOYEE_ROLE_SEED_DATA, APPROVAL_ROLE_SEED_DATA, Admin, Viewer
 from ..utils import sequence as sq
 from ...admin_settings.models import Employee
 
@@ -266,27 +263,6 @@ class ApprovalPerm(PermissionComponent):
                 flag = True
         return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
 
-
-class NoDuesPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == NO_DUES_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == NO_DUES_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
 class EmployeePerm(PermissionComponent):
     def has_permission(self, request, view):
         flag = False
@@ -305,71 +281,6 @@ class EmployeePerm(PermissionComponent):
             if role.code_name == EMPLOYEE_ROLE_SEED_DATA["code_name"]:
                 flag = True
         return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class ITAdministratorPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == IT_ADMINISTRATOR_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == IT_ADMINISTRATOR_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class WebAdminPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == WEB_ADMIN_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == WEB_ADMIN_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class WebAdminOnlyGetPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        if request.method != 'GET':
-            return False
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == WEB_ADMIN_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        if request.method != 'GET':
-            return False
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == WEB_ADMIN_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
 
 class EmployeePermOnlyGet(PermissionComponent):
     def has_permission(self, request, view):
@@ -407,134 +318,6 @@ class AllowAnyOnlyGetPerm(PermissionComponent):
         return False
 
 
-class TravelDeskPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == TRAVEL_DESK_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == TRAVEL_DESK_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class ManagementPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == MANAGEMENT_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == MANAGEMENT_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class UnitHeadPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == UNIT_HEAD_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == UNIT_HEAD_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class UnitHeadPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == UNIT_HEAD_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == UNIT_HEAD_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class ManagementOnlyGet(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if request.method != 'GET':
-            return False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == MANAGEMENT_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if request.method != 'GET':
-            return False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == MANAGEMENT_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class UnitHeadOnlyGet(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if request.method != 'GET':
-            return False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == UNIT_HEAD_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if request.method != 'GET':
-            return False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == UNIT_HEAD_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
 class IsSuperUserOnlyGet(PermissionComponent):
     def has_permission(self, request, view):
         if request.method != 'GET':
@@ -545,87 +328,6 @@ class IsSuperUserOnlyGet(PermissionComponent):
         if request.method != 'GET':
             return False
         return request.user and request.user.is_authenticated and request.user.is_superuser
-
-
-class AttendancePerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == ATTENDANCE_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == ATTENDANCE_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class InventoryHeadPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == INVENTORY_HEAD_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == INVENTORY_HEAD_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class AssetManagerPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == ASSET_MANAGER_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == ASSET_MANAGER_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-
-class AccountsPerm(PermissionComponent):
-    def has_permission(self, request, view):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == ACCOUNTS_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
-    def has_object_permission(self, request, view, obj):
-        flag = False
-        if not request.user.pk:
-            return False
-        for role in request.user.role.all():
-            if role.code_name == ACCOUNTS_ROLE_SEED_DATA["code_name"]:
-                flag = True
-        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
-
 
 class AdminPerm(PermissionComponent):
     def has_permission(self, request, view):
@@ -664,3 +366,12 @@ class ViewerPerm(PermissionComponent):
         instance = Employee.objects.filter(user=request.user.pk, is_active=True).first()
         if instance and instance.role == Viewer:
             flag = True
+        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
+
+
+class IsTheSameUser(PermissionComponent):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated()
+
+    def has_object_permission(self, request, view, obj=None):
+        return request.user.is_authenticated() and request.user.pk == obj.pk

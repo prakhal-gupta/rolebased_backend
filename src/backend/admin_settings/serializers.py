@@ -145,7 +145,7 @@ class EmployeeSerializer(ModelSerializer):
         if self.instance:
             queryset = queryset.exclude(id=self.instance.id)
         if queryset.exists():
-            raise serializers.ValidationError({"detail": "This user already added with this Court"})
+            raise serializers.ValidationError({"detail": "This user is already added."})
         return data
 
     def create(self, validated_data):
@@ -161,8 +161,7 @@ class EmployeeSerializer(ModelSerializer):
 
     @staticmethod
     def get_user_data(obj):
-        from ..employee.serializers import UserEmployeeSerializer
-        return UserEmployeeSerializer(obj.user).data if obj.user else None
+        return UserBasicDataSerializer(obj.user).data if obj.user else None
 
     @staticmethod
     def get_designation_data(obj):

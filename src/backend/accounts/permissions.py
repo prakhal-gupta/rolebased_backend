@@ -1,16 +1,4 @@
-from ..base.api.permissions import (AllowAny, PermissionComponent, ResourcePermission, IsSuperUser)
-
-
-class IsTheSameUser(PermissionComponent):
-    def has_permission(self, request, view):
-        if not request.user.pk:
-            return False
-        return request.user.is_authenticated()
-
-    def has_object_permission(self, request, view, obj=None):
-        if not request.user.pk:
-            return False
-        return request.user.is_authenticated() and request.user.pk == obj.pk
+from ..base.api.permissions import (AllowAny, PermissionComponent, ResourcePermission, IsSuperUser, IsTheSameUser)
 
 
 class UserPermissions(ResourcePermission):
