@@ -1,4 +1,4 @@
-<b>Lawsphere (ROLE BASED Authentication)</b>
+<b>Grievance Management(ROLE BASED Authentication)</b>
 
 <b>Overview</b>
 
