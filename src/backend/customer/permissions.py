@@ -1,4 +1,5 @@
-from ..base.api.permissions import (AllowAny, IsAuthenticated, ResourcePermission, IsSuperUser, IsTheSameUser)
+from ..base.api.permissions import (AllowAny, IsAuthenticated, ResourcePermission, IsSuperUser, IsTheSameUser,
+                                    CustomerPerm, AllOnlyGetPerm)
 
 
 class CustomerPermissions(ResourcePermission):
@@ -11,5 +12,5 @@ class CustomerPermissions(ResourcePermission):
     partial_update_perms = IsTheSameUser()
     destroy_perms = IsSuperUser() | IsTheSameUser()
     list_perms = IsAuthenticated()
-    customer_user_perms = IsAuthenticated()
-    grievance_perms = IsAuthenticated()
+    customer_user_perms = IsTheSameUser() | AllOnlyGetPerm()
+    grievance_perms = CustomerPerm()

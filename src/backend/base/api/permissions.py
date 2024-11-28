@@ -1,7 +1,8 @@
 import inspect
 from functools import reduce
 from rest_framework.permissions import BasePermission
-from .constants import HR_ROLE_SEED_DATA, EMPLOYEE_ROLE_SEED_DATA, APPROVAL_ROLE_SEED_DATA, Admin, Viewer
+from .constants import HR_ROLE_SEED_DATA, EMPLOYEE_ROLE_SEED_DATA, APPROVAL_ROLE_SEED_DATA, Admin, Viewer, \
+    CUSTOMER_ROLE_SEED_DATA
 from ..utils import sequence as sq
 from ...admin_settings.models import Employee
 
@@ -302,6 +303,48 @@ class EmployeePermOnlyGet(PermissionComponent):
             return False
         for role in request.user.role.all():
             if role.code_name == EMPLOYEE_ROLE_SEED_DATA["code_name"]:
+                flag = True
+        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
+
+class CustomerPerm(PermissionComponent):
+    def has_permission(self, request, view):
+        flag = False
+        if not request.user.pk:
+            return False
+        for role in request.user.role.all():
+            if role.code_name == CUSTOMER_ROLE_SEED_DATA["code_name"]:
+                flag = True
+        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
+
+    def has_object_permission(self, request, view, obj):
+        flag = False
+        if not request.user.pk:
+            return False
+        for role in request.user.role.all():
+            if role.code_name == CUSTOMER_ROLE_SEED_DATA["code_name"]:
+                flag = True
+        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
+
+class CustomerPermOnlyGet(PermissionComponent):
+    def has_permission(self, request, view):
+        flag = False
+        if request.method != 'GET':
+            return False
+        if not request.user.pk:
+            return False
+        for role in request.user.role.all():
+            if role.code_name == CUSTOMER_ROLE_SEED_DATA["code_name"]:
+                flag = True
+        return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
+
+    def has_object_permission(self, request, view, obj):
+        flag = False
+        if request.method != 'GET':
+            return False
+        if not request.user.pk:
+            return False
+        for role in request.user.role.all():
+            if role.code_name == CUSTOMER_ROLE_SEED_DATA["code_name"]:
                 flag = True
         return request.user and request.user.is_authenticated and (flag or request.user.is_superuser)
 

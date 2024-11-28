@@ -61,7 +61,6 @@ class EmployeeFilter(django_filters.FilterSet):
         fields = {
             'id': ['exact'],
             'user': ['exact'],
-            'permission_set': ['exact'],
             'designation': ['exact'],
             'department': ['exact'],
             'joining_date': ['exact', 'lt', 'lte', 'gt', 'gte'],

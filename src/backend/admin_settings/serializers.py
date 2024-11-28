@@ -1,6 +1,6 @@
 from django.db.models import Q
 from rest_framework import serializers
-from .models import DynamicSettings, Country, State, City, Employee, EmployeePermissions
+from .models import DynamicSettings, Country, State, City, Employee
 from .services import delete_child
 from ..accounts.serializers import UserBasicDataSerializer
 from ..base.serializers import ModelSerializer
@@ -120,14 +120,8 @@ class DynamicSettingsValueSerializer(ModelSerializer):
         fields = ('value',)
 
 
-class EmployeePermissionsSerializer(ModelSerializer):
-    class Meta:
-        model = EmployeePermissions
-        fields = '__all__'
-
 
 class EmployeeSerializer(ModelSerializer):
-    permissions = EmployeePermissionsSerializer(required=False, many=True)
     user_data = serializers.SerializerMethodField(required=False)
     designation_data = serializers.SerializerMethodField(required=False)
     department_data = serializers.SerializerMethodField(required=False)

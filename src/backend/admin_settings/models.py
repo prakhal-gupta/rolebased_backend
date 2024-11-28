@@ -45,32 +45,14 @@ class City(TimeStampedModel):
         ordering = ['name']
 
 
-class EmployeePermissions(TimeStampedModel):
-    key = models.CharField(max_length=255, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-
-
-# designation wise permission/permission sets
-class PermissionSets(TimeStampedModel):
-    employee = models.ForeignKey('admin_settings.Employee', blank=True, null=True, on_delete=models.PROTECT)
-    name = models.CharField(max_length=1024, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    permissions = models.ManyToManyField(EmployeePermissions, blank=True)
-    is_disabled = models.BooleanField(default=True)
-    is_active = models.BooleanField(default=True)
-
-
 class Employee(TimeStampedModel):
     user = models.ForeignKey(get_user_model(), blank=True, null=True, on_delete=models.PROTECT,
                              related_name="employee_user")
-    permissions = models.ManyToManyField(EmployeePermissions, blank=True)
     first_name = models.CharField(max_length=128, blank=True, null=True, default='')
     last_name = models.CharField(max_length=128, blank=True, null=True, default='')
     dob = models.DateField(blank=True, null=True)
     mobile = models.CharField(max_length=128, blank=True, null=True, default='')
     mobile2 = models.CharField(max_length=128, blank=True, null=True, default='')
-    permission_set = models.ForeignKey(PermissionSets, blank=True, null=True, on_delete=models.PROTECT,
-                                       related_name="employee_permission_set")
     designation = models.ForeignKey(DynamicSettings, blank=True, null=True, on_delete=models.PROTECT, related_name="employee_designation")
     department = models.ForeignKey(DynamicSettings, blank=True, null=True, on_delete=models.PROTECT, related_name="employee_department")
     emp_code = models.CharField(max_length=124, blank=True, null=True)
