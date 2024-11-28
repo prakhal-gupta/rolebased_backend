@@ -120,3 +120,15 @@ def create_employee(email=None, name=None, mobile=None):
             data['password'] = password
         send_from_template(user.email, subject, template, data)
     return user
+
+
+def bulk_role(request_data):
+    roles = request_data.get('roles', [])
+    employees = request_data.get('employees', None)
+    res_data = []
+    for employee_id in employees:
+        user = get_user_model().objects.filter(pk=employee_id, is_active=True).first()
+        if user:
+            record = {"id": user.id, "role": roles}
+            res_data.append(record)
+    return res_data

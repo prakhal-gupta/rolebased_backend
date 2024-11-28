@@ -10,7 +10,7 @@ from .models import DynamicSettings, Country, State, City, Employee
 from .permissions import DynamicSettingsPermissions
 from .serializers import (DynamicSettingsSerializer, CountrySerializer, StateSerializer, CitySerializer,
                           DeleteEmployeeSerializer, EmployeeSerializer)
-from .services import dropdown_tree, create_new_user
+from .services import dropdown_tree, create_new_user, bulk_role
 from ..accounts.filters import UserBasicFilter, RolesFilter
 from ..accounts.models import Roles
 from ..accounts.serializers import UserSerializer, RoleSerializer
@@ -18,7 +18,7 @@ from ..base.utils.email import send_from_template
 from ..base import response
 from ..base.api.pagination import StandardResultsSetPagination
 from ..base.api.viewsets import ModelViewSet
-from ..base.services import create_update_record
+from ..base.services import create_update_record, create_update_bulk_records
 
 
 class DynamicSettingsViewSet(ModelViewSet):
@@ -212,12 +212,13 @@ class DynamicSettingsViewSet(ModelViewSet):
             email = request_data.get("email", None)
             mobile = request_data.get("mobile", None)
             first_name = request_data.get("first_name", None)
+            last_name = request_data.get("last_name", None)
             if not id:
                 if not email:
                     return response.BadRequest({"detail": "Email is required!"})
             user = get_user_model().objects.filter(email=email, is_active=True).first()
             if not user:
-                user, password = create_new_user(email=email, mobile=mobile, first_name=first_name)
+                user, password = create_new_user(email=email, mobile=mobile, first_name=first_name, last_name=last_name)
                 template = "employee_added.html"
                 subject = "Your profile is added to Lawsphere"
                 data = {
@@ -297,3 +298,21 @@ class DynamicSettingsViewSet(ModelViewSet):
             return response.Ok(RoleSerializer(queryset, many=True).data)
         else:
             return response.Ok(create_update_record(request, RoleSerializer, Roles))
+
+
+    @swagger_auto_schema(
+        method="post",
+        operation_summary='Add Employee Role',
+        operation_description='Add Employee Role',
+        request_body=UserSerializer,
+        response=UserSerializer
+    )
+    @action(methods=['POST'], detail=False, pagination_class=StandardResultsSetPagination)
+    def bulk_employee_role_edit(self, request):
+        request_data = request.data.copy()
+        records = bulk_role(request_data)
+        result = create_update_bulk_records(records, UserSerializer, get_user_model())
+        if result["success"]:
+            return response.Ok(result["data"])
+        else:
+            return response.BadRequest(result["errors"])

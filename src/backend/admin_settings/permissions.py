@@ -20,3 +20,4 @@ class DynamicSettingsPermissions(ResourcePermission):
     employee_perms = IsSuperUser() | HRPerm() | EmployeePermOnlyGet()
     deleted_employee_perms = IsSuperUser() | HRPerm() | EmployeePerm()
     role_perms = EmployeePerm() | HRPerm()
+    bulk_employee_role_edit_perms = IsSuperUser() | HRPerm()

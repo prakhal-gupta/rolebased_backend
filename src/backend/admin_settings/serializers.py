@@ -137,10 +137,9 @@ class EmployeeSerializer(ModelSerializer):
         fields = '__all__'
 
     def validate(self, data):
-        court = data.get('court', None)
         user = data.get('user', None)
         first_name = data.get('first_name', None)
-        queryset = Employee.objects.filter(court=court, is_active=True)
+        queryset = Employee.objects.filter(is_active=True)
         queryset = queryset.filter(Q(user=user) | Q(first_name=first_name))
         if self.instance:
             queryset = queryset.exclude(id=self.instance.id)
