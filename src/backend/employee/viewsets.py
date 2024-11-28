@@ -63,7 +63,12 @@ class EmployeeViewSet(ModelViewSet):
         else:
             request_data = request.data.copy()
             request_data['action_by'] = request.user.pk
-            return response.Ok(create_update_record(request_data, GrievanceHODApprovalSerializer, GrievanceHODApproval))
+            existing_approval = GrievanceHODApproval.objects.filter(grievance_id=request.data.get('grievance')).first()
+            if existing_approval:
+                request_data['id'] = existing_approval.id
+            else:
+                return response.BadRequest({"detail": "No GrievanceHODApproval record found for the given grievance."})
+        return response.Ok(create_update_record(request_data, GrievanceHODApprovalSerializer, GrievanceHODApproval))
 
     @swagger_auto_schema(
         method="put",
@@ -104,4 +109,9 @@ class EmployeeViewSet(ModelViewSet):
         else:
             request_data = request.data.copy()
             request_data['action_by'] = request.user.pk
+            existing_approval = GrievanceHRApproval.objects.filter(grievance_id=request.data.get('grievance')).first()
+            if existing_approval:
+                request_data['id'] = existing_approval.id
+            else:
+                return response.BadRequest({"detail": "No GrievanceHRApproval record found for the given grievance."})
             return response.Ok(create_update_record(request_data, GrievanceHRApprovalSerializer, GrievanceHRApproval))

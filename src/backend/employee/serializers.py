@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from ..accounts.models import Roles
 from ..base.api.constants import HR_ROLE_SEED_DATA
@@ -33,7 +35,16 @@ class GrievanceHODApprovalSerializer(ModelSerializer):
         is_approved = validated_data.get('is_approved', None)
         is_rejected = validated_data.get('is_rejected', None)
         grievance_obj = Grievance.objects.filter(id=instance.grievance.pk, is_active=True).first()
+        if not grievance_obj:
+            raise serializers.ValidationError({"detail": "Grievance not found or inactive"})
+        if grievance_obj.is_cancelled:
+            raise serializers.ValidationError({"detail": "This grievance is already cancelled"})
         hr_role = Roles.objects.filter(code_name=HR_ROLE_SEED_DATA["code_name"], is_active=True).first()
+        if not hr_role:
+            raise serializers.ValidationError({"detail": "HR role not found or inactive"})
+        employee_hr = get_user_model().objects.filter(role__in=[hr_role], is_active=True).first()
+        if not employee_hr:
+            raise serializers.ValidationError({"detail": "No active HR employee found"})
         if grievance_obj.is_cancelled:
             raise serializers.ValidationError({"detail": "This grievance is already cancelled"})
         if is_approved:
