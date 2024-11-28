@@ -17,7 +17,7 @@ class GenericAPIView(DRF_generics.GenericAPIView):
                 self.permission_denied(request)
 
 
-class LawsphereGenericAPIView(GenericAPIView):
+class GrievanceGenericAPIView(GenericAPIView):
     def app_permission_denied(self, request, message=None):
         if not request.successful_authenticator and not message:
             raise exceptions.NotAuthenticated()

@@ -1,5 +1,5 @@
 import re
-from ..api.exceptions import LawsphereValidationError
+from ..api.exceptions import GrievanceValidationError
 from rest_framework.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -11,7 +11,7 @@ class NameValidator(object):
         if re.match("^[a-zA-Z]+[a-zA-Z. ]*$", value):
             return value
         else:
-            raise LawsphereValidationError(self.valid_message)
+            raise GrievanceValidationError(self.valid_message)
 
 
 class MobileValidator(object):

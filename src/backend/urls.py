@@ -12,7 +12,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="ERP API",
         default_version='v1',
-        description="LAWSPHERE APIs",
+        description="GRIEVANCE MANAGEMENT APIs",
         contact=openapi.Contact(email="prakhalgupta.j12@gmail.com"),
     ),
     public=True,
@@ -21,11 +21,11 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('lawsphere-api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('lawsphere-api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-    path('lawsphere-api/v1/logout/', TokenBlacklistView.as_view(), name='token_blacklist'),
-    path('lawsphere-api/v1/password_reset/', include('django_rest_passwordreset.urls')),
-    path('lawsphere-api/v1/', include(restricted_router.urls)),
+    path('grievance-api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('grievance-api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('grievance-api/v1/logout/', TokenBlacklistView.as_view(), name='token_blacklist'),
+    path('grievance-api/v1/password_reset/', include('django_rest_passwordreset.urls')),
+    path('grievance-api/v1/', include(restricted_router.urls)),
 ]
 
 if settings.DEBUG:

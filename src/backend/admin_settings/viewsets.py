@@ -220,13 +220,13 @@ class DynamicSettingsViewSet(ModelViewSet):
             if not user:
                 user, password = create_new_user(email=email, mobile=mobile, first_name=first_name, last_name=last_name)
                 template = "employee_added.html"
-                subject = "Your profile is added to Lawsphere"
+                subject = "Your profile is added to Grievance Management"
                 data = {
                     'data': UserSerializer(user).data,
                     'login_link': config('DOMAIN')
                 }
                 if password:
-                    subject = "Your profile has been created on Lawsphere."
+                    subject = "Your profile has been created on Grievance Management."
                     template = "user_created.html"
                     data['password'] = password
                     data['professional_name'] = user.first_name if user.first_name else '--'
