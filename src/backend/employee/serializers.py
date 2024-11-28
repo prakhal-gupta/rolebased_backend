@@ -6,7 +6,6 @@ from ..base.serializers import ModelSerializer
 from .models import GrievanceHODApproval, GrievanceHRApproval
 from ..accounts.serializers import UserBasicDataSerializer
 from ..customer.models import Grievance
-from ..customer.serializers import GrievanceSerializer
 
 class GrievanceHODDataSerializer(ModelSerializer):
     class Meta:
@@ -58,6 +57,7 @@ class GrievanceHODApprovalSerializer(ModelSerializer):
 
     @staticmethod
     def get_grievance_data(obj):
+        from ..customer.serializers import GrievanceSerializer
         return GrievanceSerializer(obj.grievance).data if obj.grievance else None
 
     @staticmethod
@@ -101,6 +101,7 @@ class GrievanceHRApprovalSerializer(ModelSerializer):
 
     @staticmethod
     def get_grievance_data(obj):
+        from ..customer.serializers import GrievanceSerializer
         return GrievanceSerializer(obj.grievance).data if obj.grievance else None
 
     @staticmethod

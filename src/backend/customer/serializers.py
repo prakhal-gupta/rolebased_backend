@@ -2,9 +2,10 @@ from datetime import datetime
 from rest_framework import serializers
 from .models import Customer, Grievance
 from ..accounts.serializers import UserBasicDataSerializer
-from ..admin_settings.serializers import EmployeeSerializer
+from ..admin_settings.serializers import EmployeeSerializer, DynamicSettingsDataSerializer
 from ..base.serializers import ModelSerializer
-from ..employee.models import GrievanceHODApproval
+from ..employee.models import GrievanceHODApproval, GrievanceHRApproval
+from ..employee.serializers import GrievanceHODDataSerializer, GrievanceHRDataSerializer
 
 
 class CustomerSerializer(ModelSerializer):
@@ -32,9 +33,9 @@ class CustomerSerializer(ModelSerializer):
 
 class GrievanceSerializer(ModelSerializer):
     user_data = serializers.SerializerMethodField(required=False)
-    victim_data = serializers.SerializerMethodField(required=False)
-    accused_data = serializers.SerializerMethodField(required=False)
-    employee_data = serializers.SerializerMethodField(required=False)
+    grievance_type_data = serializers.SerializerMethodField(required=False)
+    hod_data = serializers.SerializerMethodField(required=False)
+    hr_data = serializers.SerializerMethodField(required=False)
 
     class Meta:
         model = Grievance
@@ -67,16 +68,18 @@ class GrievanceSerializer(ModelSerializer):
         return instance
 
     @staticmethod
-    def get_victim_data(obj):
-        return CustomerSerializer(obj.victim).data if obj.victim else None
+    def get_grievance_type_data(obj):
+        return DynamicSettingsDataSerializer(obj.grievance_type).data if obj.grievance_type else None
 
     @staticmethod
-    def get_accused_data(obj):
-        return CustomerSerializer(obj.accused).data if obj.accused else None
+    def get_hod_data(obj):
+        hod_record = GrievanceHODApproval.objects.filter(grievance=obj.id, is_active=True).first()
+        return GrievanceHODDataSerializer(hod_record).data if hod_record else None
 
     @staticmethod
-    def get_employee_data(obj):
-        return EmployeeSerializer(obj.employee).data if obj.employee else None
+    def get_hr_data(obj):
+        hr_record = GrievanceHRApproval.objects.filter(grievance=obj.id, is_active=True).first()
+        return GrievanceHRDataSerializer(hr_record).data if hr_record else None
 
     @staticmethod
     def get_user_data(obj):

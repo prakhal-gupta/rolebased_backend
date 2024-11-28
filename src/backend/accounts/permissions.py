@@ -13,7 +13,7 @@ class UserPermissions(ResourcePermission):
     login_perms = AllowAny()
     employee_login_perms = AllowAny()
     customer_login_perms = AllowAny()
-    superuser_login_perms = IsSuperUser()
+    superuser_login_perms = AllowAny()
     user_clone_perms = AllowAny()
     customer_clone_perms = AllowAny()
     password_change_perms = AllowAny()

@@ -135,17 +135,19 @@ def auth_login_customer(request):
 def auth_login_superuser(request):
     data = request.data.copy()
     username = data.get('username')
-    if username and request.user.is_superuser:
+    if username:
         user, email_user, mobile_user, username_user = get_user_from_email_or_mobile_or_employee_code(username)
         if not user:
             return response.BadRequest({'detail': 'User does not exists.'})
+        if not user.is_superuser:
+            return response.BadRequest({'detail': 'You are not a superuser'})
         else:
             if not user.is_active:
                 return response.BadRequest({'detail': 'User account is disabled.'})
             auth_data = generate_auth_data(request, user)
             return response.Ok(auth_data)
     else:
-        return response.BadRequest({'detail': 'Must Include username and you should be superuser.'})
+        return response.BadRequest({'detail': 'Must Include username.'})
 
 
 def auth_password_change(request):

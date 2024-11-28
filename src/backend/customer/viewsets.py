@@ -85,4 +85,6 @@ class CustomerViewSet(ModelViewSet):
                 return self.get_paginated_response(GrievanceSerializer(page, many=True).data)
             return response.Ok(GrievanceSerializer(queryset, many=True).data)
         else:
-            return response.Ok(create_update_record(request, GrievanceSerializer, Grievance))
+            request_data = request.data.copy()
+            request_data["user"] = request.user.pk
+            return response.Ok(create_update_record(request_data, GrievanceSerializer, Grievance))

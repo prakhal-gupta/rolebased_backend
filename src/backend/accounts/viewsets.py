@@ -276,8 +276,7 @@ class UserViewSet(ModelViewSet):
         data = auth_register_user(request)
         request_data = request.data.copy()
         first_name = request_data.get("first_name", "")
-        middle_name = request_data.get("middle_name", "")
         last_name = request_data.get("last_name", "")
-        request_data["name"] = f"{first_name} {middle_name} {last_name}".strip()
+        request_data["name"] = f"{first_name} {last_name}".strip()
         request_data["user"] = data["id"]
         return response.Ok(create_update_record(request_data, CustomerRegistrationSerializer, Customer))
